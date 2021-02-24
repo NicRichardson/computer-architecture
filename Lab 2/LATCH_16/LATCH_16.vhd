@@ -27,12 +27,12 @@ BEGIN
                 -- rst, set all internal latch variables to zero
                 signal_a <= '0';
             else
-                -- on raising edge, output all internally stored values
-                out_a <= signal_a;
+                -- on raising edge, input data and store
+                signal_a <= in_a;
             END if;
         END if;
     END PROCESS;
-    -- async, input data and store
-    signal_a <= in_a;
+    -- async, output all internally stored values
+    out_a <= signal_a;
 
 END behavioural;
