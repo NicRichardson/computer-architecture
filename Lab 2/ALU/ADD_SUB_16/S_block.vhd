@@ -4,20 +4,20 @@ use ieee.std_logic_unsigned.all;
 
 entity S_block is
     port (
-        a : in  std_logic;
-        b : in  std_logic;
-        G : out std_logic;
-        P : out std_logic
+        S_a : in  std_logic;
+        S_b : in  std_logic;
+        S_G : out std_logic;
+        S_P : out std_logic
     );
 end S_block;
 
 architecture behavioural of S_block is
 
 begin
-    process(a, b)
+    process(S_a, S_b)
     begin
-        G <= b and a;
-        P <= b xor a;
+        S_G <= S_b and S_a;
+        S_P <= S_b xor S_a;
     end process;
 
 end behavioural;

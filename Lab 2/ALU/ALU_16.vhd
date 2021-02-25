@@ -28,23 +28,22 @@ architecture behavioural of ALU_16 is
         b   : in  std_logic_vector(15 downto 0);
         f   : out std_logic_vector(15 downto 0);
         ci  : in  std_logic;
-        co  : out std_logic
+        v   : out std_logic
     );
     end component;
     signal add_sub_ci : std_logic;
-    signal add_sub_co : std_logic;
     signal add_sub_a  : std_logic_vector(15 downto 0);
     signal add_sub_b  : std_logic_vector(15 downto 0);
     signal out_buf    : std_logic_vector(15 downto 0);
 begin
-    add_sub_16 : ADD_SUB_16 port map 
+    add_sub_16_0 : ADD_SUB_16 port map 
     (
         rst => rst,
         a   => add_sub_a,
         b   => add_sub_b,
         f   => result,
         ci  => add_sub_ci,
-        co  => add_sub_co
+        v   => v_flag
     );
 
     process(rst, alu_mode, in1, in2)
@@ -57,7 +56,6 @@ begin
         n_flag <= '0';
         v_flag <= '0';
         add_sub_ci <= '0';
-        add_sub_co <= '0';
         add_sub_a <= (others => '0');
         add_sub_b <= (others => '0');
         -- set all internal values to default; zero
@@ -72,20 +70,27 @@ begin
                 add_sub_a  <= in1;
                 add_sub_b  <= in2;
                 add_sub_ci <= '0';
-                v_flag <= ((in1(15) xnor in2(15)) = out_buf(15));
             when "010" => -- SUB
                 add_sub_a  <= in1;
                 add_sub_b  <= not in2;
                 add_sub_ci <= '1';
-                v_flag <= ((in1(15) xnor in2(15)) = out_buf(15));
-            --when "011" => -- MUL
-                
+            when "011" => -- MUL
+                result <= (others => '0');
+                z_flag <= '1';
+                n_flag <= '0';
+                v_flag <= '0';
             when "100" => -- NAND
                 result <= in1 nand in2;
-            --when "101" => -- SHL
-
-            --when "110" => -- SHR
-                
+            when "101" => -- SHL
+                result <= (others => '0');
+                z_flag <= '1';
+                n_flag <= '0';
+                v_flag <= '0';
+            when "110" => -- SHR
+                result <= (others => '0');
+                z_flag <= '1';
+                n_flag <= '0';
+                v_flag <= '0';
             when "111" => -- TEST
                 if (in1 = X"0000") then -- zero value
                     z_flag <= '1';
@@ -97,6 +102,11 @@ begin
                     z_flag <= '0';
                     n_flag <= '0';
                 end if;
+            when others =>
+                result <= (others => '0');
+                z_flag <= '1';
+                n_flag <= '0';
+                v_flag <= '0';    
         end case;
         if (out_buf = X"0000") then
             z_flag <= '1';

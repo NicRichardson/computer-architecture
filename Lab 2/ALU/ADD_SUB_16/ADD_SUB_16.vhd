@@ -9,7 +9,7 @@ entity ADD_SUB_16 is
         b   : in  std_logic_vector(15 downto 0);
         f   : out std_logic_vector(15 downto 0);
         ci  : in  std_logic;
-        co  : out std_logic
+        v  : out std_logic
     );
 end ADD_SUB_16;
 
@@ -241,11 +241,29 @@ begin
         LC_Pn => LC_Pn_4_1
     );
 
-    process(rst, en, a, b, ci)
+    process(rst, a, b, ci,
+            SC_C_1_0, 
+            SC_C_2_1, 
+            SC_C_2_2, 
+            SC_C_3_3, 
+            SC_C_3_4, 
+            SC_C_3_5, 
+            SC_C_3_6, 
+            SC_C_4_7, 
+            SC_C_4_8, 
+            SC_C_4_9, 
+            SC_C_4_10, 
+            SC_C_4_11, 
+            SC_C_4_12, 
+            SC_C_4_13, 
+            SC_C_4_14, 
+            LC_Gn_4_1,
+            LC_Pn_4_1
+            )
     begin
         if (rst = '1') then
             f <= (others => '0');
-            co <= '0';
+            v <= '0';
         else
             f(0)  <= S_P_vec(0)  xor ci;
             f(1)  <= S_P_Vec(1)  xor SC_C_1_0;
@@ -263,7 +281,7 @@ begin
             f(13) <= S_P_vec(13) xor SC_C_4_12;
             f(14) <= S_P_vec(14) xor SC_C_4_13;
             f(15) <= S_P_vec(15) xor SC_C_4_14;
-            co    <= LC_Gn_4_1 or (LC_Pn_4_1 and ci);
+            v <= SC_C_4_14 xor (LC_Gn_4_1 or (LC_Pn_4_1 and ci));
         end if;
     end process;
 
