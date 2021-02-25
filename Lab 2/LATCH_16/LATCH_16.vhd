@@ -8,24 +8,24 @@ ENTITY LATCH_16 IS
         rst : IN STD_LOGIC;
         clk : IN STD_LOGIC;
         -- any input signals
-        in_a : in std_logic;
+        in_a : in std_logic_vector(15 downto 0);
         -- matching output signals
-        out_a : out std_logic;
-        
+        out_a : out std_logic_vector(15 downto 0)
+        );        
 END LATCH_16;
 
 ARCHITECTURE behavioural OF LATCH_16 IS
 
     -- matching internals signals
-    SIGNAL signal_a : std_logic;
+    SIGNAL signal_a : std_logic_vector(15 downto 0) := X"0000";
 BEGIN
     --write operation 
     PROCESS(clk)
     BEGIN
-        if (clk = '0' AND clk'event) THEN
+        if (rising_edge(clk)) THEN
             if (rst = '1') THEN
                 -- rst, set all internal latch variables to zero
-                signal_a <= '0';
+                signal_a <= X"0000";
             else
                 -- on raising edge, input data and store
                 signal_a <= in_a;
