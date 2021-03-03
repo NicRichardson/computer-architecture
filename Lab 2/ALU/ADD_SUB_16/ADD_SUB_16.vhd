@@ -258,7 +258,8 @@ begin
             SC_C_4_13, 
             SC_C_4_14, 
             LC_Gn_4_1,
-            LC_Pn_4_1
+            LC_Pn_4_1,
+            S_P_vec
             )
     begin
         if (rst = '1') then
