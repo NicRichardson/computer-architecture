@@ -74,6 +74,18 @@ BEGIN
         assert (f = X"0002") report "Ef:  1+1=2";
         assert     (v = '0') report "Eco: 1+1=2";
 
+        a <= X"FFFF";
+        b <= X"0002";
+        wait for 10 us;
+        assert (f = X"0001") report "Ef:  1+1=2";
+        assert     (v = '0') report "Eco: 1+1=2";
+
+        a <= X"FFFE";
+        b <= X"0001";
+        wait for 10 us;
+        assert (f = X"FFFF") report "Ef:  1+1=2";
+        assert     (v = '0') report "Eco: 1+1=2";
+
         ci <= '1';
         a <= X"0001";
         b <= X"0001";
