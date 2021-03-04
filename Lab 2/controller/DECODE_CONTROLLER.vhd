@@ -3,7 +3,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_unsigned.all;
 
-entity ALU_16 is
+entity DECODE_CONTROLLER is
     port(
         rst     : in std_logic;
         opcode  : in std_logic_vector(6 downto 0);
@@ -11,9 +11,9 @@ entity ALU_16 is
         regwb   : out std_logic;
         memwb   : out std_logic
     );
-end ALU_16;
+end DECODE_CONTROLLER;
 
-architecture behavioural of ALU_16 is
+architecture behavioural of DECODE_CONTROLLER is
 
 begin
     process(rst, opcode)

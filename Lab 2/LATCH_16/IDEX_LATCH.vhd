@@ -3,7 +3,7 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.std_logic_unsigned.ALL;
 
-ENTITY LATCH_16 IS
+ENTITY IDEX_LATCH IS
     PORT (
         rst : IN STD_LOGIC;
         clk : IN STD_LOGIC;
@@ -14,17 +14,19 @@ ENTITY LATCH_16 IS
         in_regwb    : in  std_logic;
         in_memwb    : in  std_logic;
         in_ra       : in  std_logic_vector(2  downto 0);
+        in_rb       : in  std_logic_vector(2  downto 0);
         -- matching output signals
         out_dr1     : out std_logic_vector(16 downto 0);
         out_dr2     : out std_logic_vector(16 downto 0);
         out_alumode : out std_logic_vector(2  downto 0);
         out_regwb   : out std_logic;
         out_memwb   : out std_logic;
-        out_ra      : out std_logic_vector(2  downto 0)
+        out_ra      : out std_logic_vector(2  downto 0);
+        out_rb      : out std_logic_vector(2  downto 0)
         );        
-END LATCH_16;
+END IDEX_LATCH;
 
-ARCHITECTURE behavioural OF LATCH_16 IS
+ARCHITECTURE behavioural OF IDEX_LATCH IS
 
     -- matching internals signals
     SIGNAL signal_dr1     : std_logic_vector(16 downto 0) := X"0000";
@@ -33,6 +35,7 @@ ARCHITECTURE behavioural OF LATCH_16 IS
     SIGNAL signal_regwb   : std_logic := '0';
     SIGNAL signal_memwb   : std_logic := '0';
     SIGNAL signal_ra      : std_logic_vector(2  downto 0) := "000";
+    SIGNAL signal_rb      : std_logic_vector(2  downto 0) := "000";
     BEGIN
     --write operation 
     PROCESS(clk)
@@ -46,6 +49,7 @@ ARCHITECTURE behavioural OF LATCH_16 IS
                 signal_regwb   <= '0';
                 signal_memwb   <= '0';
                 signal_ra      <= "000";
+                signal_rb      <= "000";
             else
                 -- on raising edge, input data and store
                 signal_dr1     <= in_dr1;
@@ -54,6 +58,7 @@ ARCHITECTURE behavioural OF LATCH_16 IS
                 signal_regwb   <= in_regwb;
                 signal_memwb   <= in_memwb;
                 signal_ra      <= in_ra;
+                signal_rb      <= in_rb;
                 END if;
         END if;
     END PROCESS;
@@ -64,5 +69,6 @@ ARCHITECTURE behavioural OF LATCH_16 IS
     out_regwb   <= signal_regwb;
     out_memwb   <= signal_memwb;
     out_ra      <= signal_ra;
+    out_rb      <= signal_rb;
 
 END behavioural;

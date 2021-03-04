@@ -3,7 +3,7 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.std_logic_unsigned.ALL;
 
-ENTITY LATCH_16 IS
+ENTITY EXMEM_LATCH IS
     PORT (
         rst : IN STD_LOGIC;
         clk : IN STD_LOGIC;
@@ -18,9 +18,9 @@ ENTITY LATCH_16 IS
         out_memwb   : out std_logic;
         out_ra      : out std_logic_vector(2  downto 0)
         );        
-END LATCH_16;
+END EXMEM_LATCH;
 
-ARCHITECTURE behavioural OF LATCH_16 IS
+ARCHITECTURE behavioural OF EXMEM_LATCH IS
 
     -- matching internals signals
     SIGNAL signal_ar      : std_logic_vector(16 downto 0) := X"0000";

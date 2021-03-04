@@ -3,7 +3,7 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.std_logic_unsigned.ALL;
 
-ENTITY LATCH_16 IS
+ENTITY IFID_LATCH IS
     PORT (
         rst : IN STD_LOGIC;
         clk : IN STD_LOGIC;
@@ -18,9 +18,9 @@ ENTITY LATCH_16 IS
         out_rb     : out std_logic_vector(2 downto 0);
         out_rc     : out std_logic_vector(2 downto 0)
         );        
-END LATCH_16;
+END IFID_LATCH;
 
-ARCHITECTURE behavioural OF LATCH_16 IS
+ARCHITECTURE behavioural OF IFID_LATCH IS
 
     -- matching internals signals
     SIGNAL signal_opcode : std_logic_vector(6 downto 0) := "0000000";

@@ -33,86 +33,157 @@ BEGIN
         alu_mode <= "000";
         in1 <= X"0000";
         in2 <= X"0000";
-        rst <= '0';
         wait for 10 us; 
         rst <= '0';
         wait for 10 us;
         ---- NOP ----
         -- result = 0x0000, v/n = 0, z = 1
-        assert(result = X"0000");
-        assert(z_flag = '1');
-        assert(n_flag = '0');
-        assert(v_flag = '0');
         wait for 10 us;
         ---- ADDITION ----
         -- 1 + 1 = 2
         alu_mode <= "001";
         in1 <= X"0001";
         in2 <= X"0001";
-        -- result = 0x0002, z/n/v = 0
-        assert(result = X"0002");
-        assert(z_flag = '0');
-        assert(n_flag = '0');
-        assert(v_flag = '0');
         wait for 10 us;
         -- -1 + -1 = -2
         in1 <= X"FFFF";
         in2 <= X"FFFF";
-        -- result = 0xFFFE, z/v = 0, n = 1
-        assert(result = X"FFFE");
-        assert(z_flag = '0');
-        assert(n_flag = '1');
-        assert(v_flag = '0');
         wait for 10 us;
         -- -1 + 2 = 1
+        in1 <= X"FFFF";
         in2 <= X"0002";
         -- result = 1, z/n/v = 0
-        assert(result = X"0001");
-        assert(z_flag = '0');
-        assert(n_flag = '0');
-        assert(v_flag = '0');
         wait for 10 us;
         -- -1 + 1 = 0
+        in1 <= X"FFFF";
         in2 <= X"0001";
         -- result = 0, n/v = 0, z = 1
-        assert(result = X"0000");
-        assert(z_flag = '1');
-        assert(n_flag = '0');
-        assert(v_flag = '0');
         wait for 10 us; 
         -- -2 + 1 = -1
         in1 <= X"FFFE"; -- -2
-        -- result = 0xFFFF (-1), z/v = 0, n = 1
-        assert(result = X"FFFF");
-        assert(z_flag = '0');
-        assert(n_flag = '1');
-        assert(v_flag = '0');
+        in2 <= X"0001";
         wait for 10 us;
         -- max_int + 1 = overflow
         in1 <= X"7FFF";
-        -- result = 0x8000, z = 0, n/v = 1
-        assert(result = X"8000");
-        assert(z_flag = '0');
-        assert(n_flag = '1');
-        assert(v_flag = '1');
+        in2 <= X"0001";
         wait for 10 us;
         -- max_int + (-max_int) = 0
+        in1 <= X"7FFF";
         in2 <= x"8001";
-        -- result = 0, n/v = 0, z = 1
-        assert(result = X"0000");
-        assert(z_flag = '1');
-        assert(n_flag = '0');
-        assert(v_flag = '0');
         wait for 10 us;
         ---- SUBTRACTION ----
         alu_mode <= "010";
-
+        in1 <= X"0001";
+        in2 <= X"0001";
+        wait for 10 us;
+        in1 <= X"FFFF";
+        in2 <= X"FFFF";
+        wait for 10 us;
+        in1 <= X"FFFF";
+        in2 <= X"0002";
+        wait for 10 us;
+        in1 <= X"FFFF";
+        in2 <= X"0001";
+        wait for 10 us; 
+        in1 <= X"FFFE"; 
+        in2 <= X"0001";
+        wait for 10 us;
+        in1 <= X"7FFF";
+        in2 <= X"0001";
+        wait for 10 us;
+        in1 <= X"7FFF";
+        in2 <= x"8001";
+        wait for 10 us;
         ---- MULTIPLICATION ----
-        --alu_mode <= "011";
-
+        alu_mode <= "011";
+        in1 <= X"0000";
+        in2 <= X"0000";
+        wait for 10 us;
+        in1 <= X"0001";
+        in2 <= X"0000";
+        wait for 10 us;
+        in1 <= X"0001";
+        in2 <= X"0001";
+        wait for 10 us;
+        in1 <= X"1234";
+        in2 <= X"0001";
+        wait for 10 us;
+        in1 <= X"0001";
+        in2 <= X"FFFF";
+        wait for 10 us;
+        in1 <= X"FFFF";
+        in2 <= X"FFFF";
+        wait for 10 us;
+        in1 <= X"FFFF";
+        in2 <= X"0000";
+        wait for 10 us;
+        in1 <= X"7FFF";
+        in2 <= X"0002";
+        wait for 10 us;
+        in1 <= X"5555";
+        in2 <= X"0002";
+        wait for 10 us;
+        in1 <= X"0002";
+        in2 <= X"5555";
+        wait for 10 us;
         ---- NAND ---- 
         alu_mode <= "100";
-
+        in1 <= X"0000";
+        in2 <= X"0000";
+        wait for 10 us;
+        in1 <= X"AAAA";
+        in2 <= X"AAAA";
+        wait for 10 us;
+        in1 <= X"5555";
+        in2 <= X"AAAA";
+        wait for 10 us;
+        in1 <= X"55AA";
+        in2 <= X"AA55";
+        wait for 10 us;
+        in1 <= X"FFFF";
+        in2 <= X"FFFF";
+        wait for 10 us;
+        in1 <= X"FF00";
+        in2 <= X"00FF";
+        wait for 10 us;
+        in1 <= X"FFFF";
+        in2 <= X"0000";
+        wait for 10 us;
+        ----- SHL ----
+        alu_mode <= "101";
+        in1 <= X"FFFF";
+        in2 <= X"0001";
+        wait for 10 us;
+        in1 <= X"FFFF";
+        in2 <= X"0010";
+        wait for 10 us;
+        in1 <= X"FFFF";
+        in2 <= X"0100";
+        wait for 10 us;
+        in1 <= X"FFFF";
+        in2 <= X"1000";
+        wait for 10 us;
+        in1 <= X"FFFF";
+        in2 <= X"1111";
+        wait for 10 us;
+        ----- SHR ----
+        alu_mode <= "110";
+        in1 <= X"FFFF";
+        in2 <= X"0001";
+        wait for 10 us;
+        in1 <= X"FFFF";
+        in2 <= X"0010";
+        wait for 10 us;
+        in1 <= X"FFFF";
+        in2 <= X"0100";
+        wait for 10 us;
+        in1 <= X"FFFF";
+        in2 <= X"1000";
+        wait for 10 us;
+        in1 <= X"FFFF";
+        in2 <= X"1111";
+        wait for 10 us;
+        ---- TEST ----
         WAIT;
     END PROCESS;
 END behavioural;
