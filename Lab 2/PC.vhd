@@ -22,7 +22,7 @@ BEGIN
             case con is
                 -- increment PC
                 when "00" =>
-                pc <= std_logic_vector(unsigned(pc) + 1);
+                pc <= std_logic_vector(unsigned(pc) + X"0002"); -- 2 for btye addressable
                 -- do not increment PC
                 when "01" =>
                     -- no action required

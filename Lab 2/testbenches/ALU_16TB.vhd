@@ -155,16 +155,16 @@ BEGIN
         in2 <= X"0001";
         wait for 10 us;
         in1 <= X"FFFF";
-        in2 <= X"0010";
+        in2 <= X"0002";
         wait for 10 us;
         in1 <= X"FFFF";
-        in2 <= X"0100";
+        in2 <= X"0004";
         wait for 10 us;
         in1 <= X"FFFF";
-        in2 <= X"1000";
+        in2 <= X"0008";
         wait for 10 us;
         in1 <= X"FFFF";
-        in2 <= X"1111";
+        in2 <= X"000F";
         wait for 10 us;
         ----- SHR ----
         alu_mode <= "110";
@@ -172,16 +172,16 @@ BEGIN
         in2 <= X"0001";
         wait for 10 us;
         in1 <= X"FFFF";
-        in2 <= X"0010";
+        in2 <= X"0002";
         wait for 10 us;
         in1 <= X"FFFF";
-        in2 <= X"0100";
+        in2 <= X"0004";
         wait for 10 us;
         in1 <= X"FFFF";
-        in2 <= X"1000";
+        in2 <= X"0008";
         wait for 10 us;
         in1 <= X"FFFF";
-        in2 <= X"1111";
+        in2 <= X"000F";
         wait for 10 us;
         ---- TEST ----
         WAIT;

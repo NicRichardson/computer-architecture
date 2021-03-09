@@ -29,8 +29,8 @@ END IDEX_LATCH;
 ARCHITECTURE behavioural OF IDEX_LATCH IS
 
     -- matching internals signals
-    SIGNAL signal_dr1     : std_logic_vector(16 downto 0) := X"0000";
-    SIGNAL signal_dr2     : std_logic_vector(16 downto 0) := X"0000";
+    SIGNAL signal_dr1     : std_logic_vector(16 downto 0) := (others => '0');
+    SIGNAL signal_dr2     : std_logic_vector(16 downto 0) := (others => '0');
     SIGNAL signal_alumode : std_logic_vector(2  downto 0) := "000";
     SIGNAL signal_regwb   : std_logic := '0';
     SIGNAL signal_memwb   : std_logic := '0';
@@ -43,8 +43,8 @@ ARCHITECTURE behavioural OF IDEX_LATCH IS
         if (rising_edge(clk)) THEN
             if (rst = '1') THEN
                 -- rst, set all internal latch variables to zero
-                signal_dr1     <= X"0000";
-                signal_dr2     <= X"0000";
+                signal_dr1     <= (others => '0');
+                signal_dr2     <= (others => '0');
                 signal_alumode <= "000";
                 signal_regwb   <= '0';
                 signal_memwb   <= '0';
